@@ -86,6 +86,29 @@
         getFriendship()
         createUniversalLink()
     }
+      async function sendFlexMessage() {
+   try {
+ if (!globalUserid) {
+     const profile = await liff.getProfile();
+     globalUserid = profile.userId;
+    }
+    const uri = "https://gsct3c2p-3001.asse.devtunnels.ms";
+    const response = await fetch(`${uri}/api/v1/sendflexmessage/${globalUserid}`, {
+     method: "POST",
+     headers: {
+      "Content-Type": "application/json",
+     },
+    });
+    if (!response.ok) {
+     throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const result = await response.json();
+    console.log("สงขอความสาเรจ:", result);
+    return result;
+   } catch (error) {
+    console.error("เกดขอผดพลาดในการสงขอความ:", error);
+   }
+  }
     main()
   </script>
 </body>
